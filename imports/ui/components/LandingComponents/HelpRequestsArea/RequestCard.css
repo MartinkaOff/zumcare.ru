@@ -1,0 +1,52 @@
+.request-card {
+    position: relative;
+    padding: 27px 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.request-card ::before {
+    width: 30px;
+    height: 30px;
+    content: '';
+    background-image: url('request-card/Polygon.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: -3%;
+    top: 53%;
+    transform: translateY(-50%);
+}
+
+.request-card-title {
+    color: #272F86;
+    font-family: Onest;
+    font-size: 25.75px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.request-card-text {
+    color: #2C3599;
+    font-family: Onest;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .request-card-title {
+        font-size: 19px;
+    }
+    .request-card-text {
+        font-size: 15px;
+    }
+    .request-card {
+        padding: 0;
+    }
+    .request-card-wrapper {
+        height: 70px !important;
+    }
+}

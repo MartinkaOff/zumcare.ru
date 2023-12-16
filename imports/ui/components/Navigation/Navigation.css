@@ -1,0 +1,58 @@
+.navbar-custom {
+  background-color: transparent;
+}
+
+.navbar-black {
+  background-color: #FFFFFF;
+}
+
+.navbar-brand {
+  width: 150px;
+  cursor: pointer;
+}
+
+.nav-link {
+  color: #00000099 !important;
+}
+.nav-link:hover {
+  color: #2C3599 !important;
+}
+
+.btn-btn-language {
+  border: 1px solid #2C3599;
+  border-radius: 42px
+
+}
+
+.navbar-toggler-icon {
+  width: 2.5em !important;
+  background: url('burger.svg') !important;
+  background-repeat: no-repeat !important;
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-brand-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .navbar-brand {
+    width: 240px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .navbar-brand-container {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .navbar-brand {
+    width: 120px !important;
+  }
+  .nav-link {
+    min-width: 0 !important;
+  }
+}
+

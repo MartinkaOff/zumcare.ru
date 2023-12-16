@@ -1,0 +1,80 @@
+.enroll-step-card {
+    padding: 0 28px;
+    /* width: 441px; */
+    height: 300px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: linear-gradient(102deg, #848CEB 7.99%, #AB9EE2 98.5%);
+}
+
+.enroll-step-card-order {
+    font-family: Onest;
+    font-size: 70.015px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    -webkit-text-stroke: 1px white;
+    color: rgba(0, 0, 0, 0.00);
+}
+
+.enroll-step-card-order-title {
+    margin-left: 100px;
+    color: #FFF;
+    font-family: Onest;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.enroll-step-card-wrapper {
+    margin-top: -5rem;
+}
+
+.enroll-step-card-order-text {
+    margin-left: 100px;
+    color: #F2F5FF;
+    font-family: Onest;
+    font-size: 22.411px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 136.7%;
+}
+
+@media screen and (max-width: 768px) {
+    .enroll-step-card-order-title {
+        margin-left: 65px;
+        font-size: 20px;
+    }
+    .enroll-step-card-order-text {
+        font-size: 12px;
+        margin: 0;
+    }
+    .enroll-step-card-order {
+        font-size: 40px;
+    }
+    .enroll-step-card-wrapper {
+        margin-top: -3rem;
+    }
+    .enroll-step-card {
+       height: 175px !important;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    .enroll-step-card-block {
+        width: 300px !important;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .enroll-step-card-block:nth-child(1){
+        margin-right: 11rem;
+    }
+    .enroll-step-card-block:nth-child(2) {
+        margin-left: 11rem;
+    }
+    .enroll-step-card-block:nth-child(3) {
+        margin-right: 11rem;
+    }
+}

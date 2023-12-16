@@ -1,0 +1,17 @@
+.heading {
+  text-align: center;
+}
+
+.heading-ribbon {
+  padding: 3rem 0 1rem 0;
+  justify-content: center;
+}
+
+.specializations-ribbon {
+  padding-bottom: 1rem;
+}
+
+.dropdown-toggle {
+  min-width: 120px;
+  margin-bottom: 1rem;
+}

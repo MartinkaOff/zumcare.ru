@@ -1,0 +1,29 @@
+.help-requests-area-items {
+    display: inline-block !important;
+    flex-direction: column !important;
+    margin-left: 55% !important;
+}
+
+.help-requests-area-wrapper {
+    height: 800px;
+    background-image: url('help-requests-area/help-requests-area.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .help-requests-area-wrapper {
+        height: 100%;
+        background-size: 285px 285px;
+        background-position-y: 7rem;
+        background-position-x: 7rem;
+    }
+    .help-requests-area-items {
+        display: inline-block !important;
+        flex-direction: column !important;
+        margin-left: 0 !important;
+        margin-top: 17rem !important;
+        padding-left: 4rem !important;
+    }
+}

@@ -1,0 +1,12 @@
+.center {
+    justify-content: center;
+    padding: 3rem 0 1rem 0;
+}
+
+.about-list {
+    padding: 0;
+}
+
+.about-list > li{
+    list-style: none;
+}

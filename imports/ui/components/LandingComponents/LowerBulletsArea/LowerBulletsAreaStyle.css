@@ -1,0 +1,15 @@
+.lower-bullets-container {
+  padding-top: 2rem;
+}
+
+.lower-bullet {
+  display: flex;
+  max-width: 300px;
+  align-self: center;
+  padding-bottom: 1rem;
+}
+
+.lower-bullets-image {
+  width: 75px;
+  height: auto;
+}

@@ -1,0 +1,1 @@
+export const Admin = Meteor.users;

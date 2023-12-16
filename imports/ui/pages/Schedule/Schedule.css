@@ -1,0 +1,48 @@
+.fc-active {
+  background-color: rgba(127, 255, 0, 0.4) !important;
+}
+.fc-booked {
+  background-color: orange !important;
+}
+
+.fc-timegrid-cols {
+  height: 0;
+}
+
+.fc-daygrid-event-harness {
+  visibility: hidden;
+}
+
+/* .fc-header-toolbar, .fc-toolbar, .fc-toolbar-ltr {
+  display: flex;
+  flex-direction: column;
+} */
+
+@media (max-width: 450px) {
+  .fc-header-toolbar, .fc-toolbar, .fc-toolbar-ltr {
+      display: flex;
+      flex-direction: column;
+  }
+}
+
+.fc-timeGridWeek-button {
+  display: none !important;
+}
+
+.fc-daygrid-day-number {
+  color: #021691 !important;
+}
+
+.fc-col-header-cell-cushion {
+  color: #021691 !important;
+}
+
+.fc-daygrid-day-bottom {
+  display: none;
+}
+
+.fc-timegrid-event-harness .fc-timegrid-event-harness-inset {
+  margin-left: 1em;
+  inset: 893px -3% -917px;
+  z-index: 1;
+}

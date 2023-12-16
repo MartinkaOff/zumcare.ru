@@ -1,0 +1,28 @@
+.wrote-about-us-area-wrapper {
+    z-index: 1;
+    position: relative;
+}
+
+.wrote-about-us-area-background {
+    filter: blur(15px);
+    z-index: -1;
+    position: absolute;
+    height: 380px;
+    width: 100% !important;
+}
+
+.wrote-about-us-area-text {
+    color: #999FD1;
+    text-align: center;
+    font-family: Onest;
+    font-size: 23.318px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+@media screen and (max-width: 500px) {
+    .source-img {
+        width: 30% !important;
+    }
+}

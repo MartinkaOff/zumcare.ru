@@ -1,0 +1,27 @@
+.specialists-info-area-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0rem;
+    width: 72px;
+    height: 72px;
+    background-color: #E4EAFF;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.specialists-info-area-wrapper {
+    display: flex;
+    justify-content: center; 
+    gap: 100px !important;
+}
+
+@media screen and (max-width: 768px) {
+    .specialists-info-area-wrapper {
+        gap: 0 !important;
+    }
+    .specialists-info-area {
+        padding-bottom: 0 !important;
+    }
+}

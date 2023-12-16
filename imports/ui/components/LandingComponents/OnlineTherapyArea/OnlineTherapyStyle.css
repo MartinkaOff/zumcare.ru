@@ -1,0 +1,137 @@
+/* .therapy-container-wrapper {
+  background-image: url(online-therapy-background.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 500px;
+  width: 100%;
+} */
+
+.therapy-block {
+  justify-content: space-evenly !important;
+}
+
+.therapy-container {
+  color: rgb(245, 236, 236);
+  padding: 3rem 0 3rem 0;
+}
+
+.therapy-element-wrapper {
+  justify-content: center;
+  padding-bottom: 1rem;
+  width: 100% !important;
+}
+
+.therapy-element {
+  margin-top: 2rem;
+}
+
+.therapy-element-header {
+  font-weight: 700;
+  color: #201132;
+  font-family: Onest;
+  font-size: 20.77px;
+  font-style: normal;
+  line-height: normal;
+}
+
+.therapy-element-text {
+  color: #201132;
+  font-family: Onest;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.therapy-button-wrapper {
+  padding-top: 2rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .therapy-desc-header {
+    font-size: 24pt;
+    padding: 0 5rem 0 5rem;
+  }
+
+  .therapy-button-wrapper {
+    padding-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .therapy-container-wrapper {
+    height: 550px;
+  }
+
+  .therapy-desc-header {
+    font-size: 18pt;
+    padding: 0 3rem 0 3rem;
+  }
+
+  .therapy-element-header {
+    font-size: 12pt;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .therapy-desc-header {
+    font-size: 14pt;
+    padding: 0 3rem 0 3rem;
+  }
+
+  .therapy-element-header {
+    font-size: 12pt;
+  }
+
+  .therapy-element-text {
+    font-size: 10pt;
+  }
+
+  .therapy-block-left {
+    width: 269px;
+    height: 300px;
+  }
+  .therapy-block-img {
+    width: 100%;
+    height: 100%;
+  }
+  .therapy-element {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .therapy-container-wrapper {
+    height: 750px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .therapy-container-wrapper {
+    height: 830px;
+  }
+}
+
+.therapy-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.therapy-block-right {
+  margin-top: 55px;
+}
+
+@media screen and (max-width: 500px) {
+  .therapy-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .therapy-block-right {
+    margin-top: 100px;
+  }
+  .therapy-container-wrapper {
+    height: 820px;
+  }
+}

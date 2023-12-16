@@ -1,0 +1,78 @@
+body {
+  background-color: whitesmoke;
+}
+
+.btn-btn-main {
+  color: #FFFFFF !important;
+  border-radius: 42px !important;
+  background: #848CEB !important;
+}
+
+@font-face {
+  font-family: 'BebasNeueRegular';
+  src: local('BebasNeueRegular')
+      url('fonts/BebasNeueRegular.woff2') format('woff2'), 
+      url('fonts/BebasNeueRegular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;    
+}
+@font-face {
+  font-family: 'Onest';
+  src: local('Onest')
+      url('fonts/Onest.woff2') format('woff2'), 
+      url('fonts/Onest.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;    
+}
+
+.title {
+  color: #201132;
+  font-family: 'BebasNeueRegular';
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.55px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.btn-btn-big {
+  height: 73px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: rgba(96, 107, 232, 0.50);
+  color: #FFF;
+  text-align: center;
+  font-family: Open Sans;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .btn-btn-big {
+    font-size: 18px;
+    width: 266px;
+    height: 60px;
+  }
+  .title {
+    font-size: 24.985px;
+    padding: 3rem 0 0 0 !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .btn-btn-main {
+    font-size: 12px;
+  }
+}
+
+.arrow {
+  width: 41.512px;
+  height: 41.512px;
+  fill: #E4EAFF;
+}
+
+
