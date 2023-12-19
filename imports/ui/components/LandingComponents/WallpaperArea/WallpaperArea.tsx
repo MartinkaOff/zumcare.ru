@@ -26,7 +26,6 @@ export function WallpaperArea() {
   return (
     <Container
       className="wallpaper-wrapper"
-      // style={{ backgroundImage: "url(wallpaper-photo.png)" }}
       fluid
     >
       <div className="wallpaper-ellipse"></div>

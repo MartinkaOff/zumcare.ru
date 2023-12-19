@@ -53,7 +53,7 @@ export function Navigation({ profile, loggingIn }) {
           }
         >
           {/* <Nav.Link>Zumcare</Nav.Link> */}
-          <img src='/logo-edited.png' width='100%' />
+          <img src='/logo-site.png' width='100%' />
         </LinkContainer>
       </Navbar.Brand>
       {window.innerWidth < 992 ?
@@ -95,11 +95,8 @@ export function Navigation({ profile, loggingIn }) {
           ))}
 
         <Dropdown>
-          <Dropdown.Toggle style={{
-            border: '1px solid #2C3599',
-            borderRadius: '42px', margin: '0 0 0 0.5rem',
-            background: '#fffff'
-          }}
+          <Dropdown.Toggle
+            className='btn-btn-opacity'
             variant='none'>
             {i18n?.language}
           </Dropdown.Toggle>

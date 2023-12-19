@@ -47,6 +47,8 @@ export function SpecialistCard({
           </p>
         </Card.Body>
         <Button
+          className='btn-btn-opacity'
+          variant='none'
           style={{ margin: '1rem' }}
           onClick={() => redirectToSpecialistPage(userId)}
         >

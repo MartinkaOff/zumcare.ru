@@ -161,7 +161,7 @@
   "experienceBackground": "Experience and Background",
   "years": "years",
   "about": {
-    "title": "Zumcare - a service for finding and selecting trusted psychologists and therapists"
+    "title": "Corporate Wellbeing"
   },
   "aboutService": {
     "title": "About the Service ",
@@ -174,17 +174,16 @@
     "childrenTitle": "For children:"
   },
   "whichCasesAdults": {
-    "case1": "Intense reluctance to move, where even simple tasks (e.g., taking a shower, throwing out the trash) become day-long challenges.",
-    "case2": "Rapid mood swings without apparent reasons, ranging from exuberant joy to profound sadness.",
-    "case3": "Loss of self-belief to the extent that starting anything feels undesirable due to the fear of failure.",
-    "case4": "Altered eating behavior: noticeable patterns of overeating or loss of appetite.",
-    "case5": "Disrupted sleep: experiencing insomnia or constant sleepiness.",
-    "case6": "Persistent fatigue and a constant desire to either sleep or do nothing.",
-    "case7": "Difficulty concentrating, learning, or engaging in tasks.",
-    "case8": "Frequent episodes of aggression and irritability.",
-    "case9": "Panic attacks occur frequently.",
-    "case10": "Thoughts of suicide arise.",
-    "case11": "The main criterion: if something interferes with your daily life and keeps reminding you of its presence, seek the appropriate specialist."
+    "case1": "Intense reluctance to move or perform simple tasks.",
+    "case2": "Rapid mood changes for no apparent reason.",
+    "case3": "Loss of self-confidence and lack of desire to start anything.",
+    "case4": "Changes in eating behavior: frequent overeating or refusal to eat.",
+    "case5": "Sleep disturbance: insomnia or constant sleepiness.",
+    "case6": "Constant fatigue and reluctance to do anything.",
+    "case7": "Difficulty concentrating, studying, or working.",
+    "case8": "Frequent display of aggression and irritability.",
+    "case9": "Panic attacks.",
+    "case10": "Having thoughts of suicide."
   },
   "whichCasesChildren": {
     "case1": "Unwillingness to communicate with others, general passivity.",
@@ -195,7 +194,7 @@
     "case6": "Anorexia, bulimia."
   },
   "whyZumcare": {
-    "title": "Why Zumcare?",
+    "title": "why corporate wellbeing?",
     "description1": "You can trust our psychotherapists with any problem and secret.",
     "description2": "Because we verify each psychotherapist's claimed qualifications and their ability to solve various human problems.",
     "additionalDescription": "Why do we pay more attention to practical experience rather than a psychotherapist's diploma?",

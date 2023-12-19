@@ -1,0 +1,171 @@
+.about-adult {
+    background-image: url('about-us/about-case.png');
+    background-repeat: no-repeat;
+    background-position-x: 40em;
+    background-position-y: 17em;
+    background-size: 420px 580px;
+}
+
+.about-service-wrapper {
+    display: flex;
+    height: 300px;
+}
+.about-service-img {
+    width: 739.556px;
+    height: 416px;
+}
+
+.about-service-text-21px {
+    display: flex;
+    align-items: center;
+    width: 574px;
+    color: #2C3599;
+    font-family: Onest;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 135%; /* 40.5px */ 
+    letter-spacing: -0.3px;
+}
+
+.about-service-text {
+    color: rgba(32, 17, 50, 0.90);
+    font-family: Onest;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 135%; /* 51.3px */
+    letter-spacing: -0.38px;
+}
+
+.about-title {
+    padding: 2rem 0 2rem 0;
+    justify-content: center;
+    color: #201132;
+    font-family: 'BebasNeueRegular';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.55px;
+    text-transform: uppercase;
+}
+
+.about-title-25px {
+    color: rgba(39, 47, 134, 0.80) !important;
+    font-family: 'Onest';
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.about-title-20px {
+    color: rgba(44, 53, 153, 0.80);
+    font-family: 'Onest';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.about-text-outline {
+    width: 55%;
+    color: #B3B7DD;
+    font-family: 'Onest';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.32px;
+}
+
+.about-list {
+    width: 630px;
+    position: relative;
+    color: rgba(39, 47, 134, 0.80);
+    font-family: 'Onest';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.about-list-item {
+    list-style: none;
+    position: relative;
+    color: rgba(39, 47, 134, 0.80);
+    font-family: 'Onest';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.about-list-item ::before {
+    width: 30px;
+    height: 22px;
+    content: '';
+    background-image: url('Polygon.svg');
+    background-size: 16px;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: -4.5%;
+    top: 49%;
+    transform: translateY(-50%);
+}
+
+.about-whyZumcare-trust {
+    width: 100% !important;
+    height: 200px;
+    border-radius: 30px;
+    background: #FFF;
+    background-image: url('about-us/trust.png');
+    background-repeat: no-repeat;
+    background-position-x: 39em;
+    background-position-y: -30px;
+}
+
+.whyZumcareItems {
+    display: flex;
+    margin-left: -40px;
+    gap: 20px;
+}
+
+.whyZumcareItem {
+    padding: 10px 0 0 28px;
+    position: relative;
+    width: 310px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FFF;
+}
+
+.whyZumcareItem :before {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    flex-shrink: 0;
+    fill: rgba(132, 140, 235, 0.59);
+    background-color: rgba(132, 140, 235, 0.59);
+}
+
+.about-whyZumcare-fact {
+    width: 100% !important;
+    height: 643px;
+    border-radius: 30px;
+    background: #FFF;
+    background-image: url('about-us/factexperience.png');
+    background-repeat: no-repeat;
+    background-position-x: -6em;
+    background-position-y: 8.5rem;
+}
+
+.about-whyZumcare-fact-block {
+    text-align: left;
+}

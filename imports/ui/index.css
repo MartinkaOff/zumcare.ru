@@ -13,9 +13,18 @@ body {
   src: local('BebasNeueRegular')
       url('fonts/BebasNeueRegular.woff2') format('woff2'), 
       url('fonts/BebasNeueRegular.woff') format('woff');
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;    
 }
+@font-face {
+  font-family: 'BebasNeueBold';
+  src: local('BebasNeueBold')
+      url('fonts/BebasNeueBold.woff2') format('woff2'), 
+      url('fonts/BebasNeueBold.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;    
+}
+
 @font-face {
   font-family: 'Onest';
   src: local('Onest')
@@ -28,12 +37,11 @@ body {
 .title {
   color: #201132;
   font-family: 'BebasNeueRegular';
-  font-size: 55px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.55px;
-  text-align: center;
   text-transform: uppercase;
 }
 
@@ -49,6 +57,13 @@ body {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+.btn-btn-opacity {
+  border: 1px solid #2C3599;
+  border-radius: 42px;
+  margin: 0 0 0 0.5rem;
+  background-color: #FFFFFF;
 }
 
 @media screen and (max-width: 768px) {

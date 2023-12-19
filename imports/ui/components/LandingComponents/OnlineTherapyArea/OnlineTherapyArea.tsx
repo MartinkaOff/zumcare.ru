@@ -63,7 +63,7 @@ export function OnlineTherapyArea() {
       <div className="therapy-block">
         <div className="therapy-block-left">
           <div>
-            <img className="therapy-block-img" src="online-therapy-background.png" alt="online-therapy-background.png" />
+            <img className="therapy-block-img" src="online-therapy-img.png" alt="online-therapy-img.png" />
           </div>
           <Row>
             <Col className="therapy-button-wrapper">

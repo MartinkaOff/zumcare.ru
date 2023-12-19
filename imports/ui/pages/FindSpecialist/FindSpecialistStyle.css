@@ -5,6 +5,14 @@
 .heading-ribbon {
   padding: 3rem 0 1rem 0;
   justify-content: center;
+  color: #201132;
+  font-family: Bebas Neue;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.55px;
+  text-transform: uppercase;
 }
 
 .specializations-ribbon {

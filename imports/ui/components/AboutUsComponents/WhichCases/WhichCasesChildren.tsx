@@ -31,5 +31,5 @@ export const casesChildrens = [
 export function WhichCasesChildren({ text }) {
   const { t } = useTranslation();
 
-  return <li>{t(text)}</li>;
+  return <div className='about-list-item'><li>{t(text)}</li></div>;
 }

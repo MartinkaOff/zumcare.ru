@@ -10,28 +10,7 @@ export const casesZumcare = [
       'diplomaPsychologicalMedicalEducation',
       'additionalEducationLongTermPsychotherapy',
     ],
-  },
-  {
-    order: 2,
-    textItems: [
-      'checkProfessionalismExperience',
-      'successfulCasesDeclaredSpecializations',
-      'knowledgeWorkStructureMind',
-      'levelEmpathyEthicalPrinciples',
-      'consultationExperiencedColleagues',
-      'totalConsultationHoursClientRecommendations',
-    ],
-  },
-  {
-    order: 3,
-    textItems: [
-      'clientsPriority',
-      'considerAllSuggestionsInnovations',
-      'analyzeFeedbackSpecialist',
-      'findAlternativeTherapistIfNotSuitable',
-      'confidentialityAgreement',
-    ],
-  },
+  }
 ];
 
 export function WhyZumcareItem({ textItems, order }) {
@@ -39,12 +18,13 @@ export function WhyZumcareItem({ textItems, order }) {
 
   return (
     <Col>
-      {t('whyZumcareItem.order', { order })}
-      <ul>
+      <ul className='whyZumcareItems' style={{ textAlign: 'left' }}>
         {textItems.map((item, index) => (
-          <li style={{ listStyle: 'none' }} key={index}>
-            {t(`whyZumcareItem.textItems.${index}`, { item: t(item) })}
-          </li>
+          <div className='whyZumcareItem'>
+            <li className='about-service-text-21px' style={{ listStyle: 'none', color: '#201132', width: '100%', fontSize: '19px' }} key={index}>
+              {t(`whyZumcareItem.textItems.${index}`, { item: t(item) })}
+            </li>
+          </div>
         ))}
       </ul>
     </Col>

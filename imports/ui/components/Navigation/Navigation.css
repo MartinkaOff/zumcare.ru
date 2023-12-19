@@ -18,12 +18,6 @@
   color: #2C3599 !important;
 }
 
-.btn-btn-language {
-  border: 1px solid #2C3599;
-  border-radius: 42px
-
-}
-
 .navbar-toggler-icon {
   width: 2.5em !important;
   background: url('burger.svg') !important;

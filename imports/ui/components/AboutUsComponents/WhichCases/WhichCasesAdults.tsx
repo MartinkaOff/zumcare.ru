@@ -41,15 +41,11 @@ export const casesAdults = [
   {
     order: 10,
     text: 'whichCasesAdults.case10',
-  },
-  {
-    order: 11,
-    text: 'whichCasesAdults.case11',
-  },
+  }
 ];
 
 export function WhichCasesAdult({ text }) {
   const { t } = useTranslation();
 
-  return <li>{t(text)}</li>;
+  return <div className='about-list-item'><li>{t(text)}</li></div>;
 }

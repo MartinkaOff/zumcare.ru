@@ -63,7 +63,7 @@ export function FindSpecialist() {
       <Row className="specializations-ribbon row-cols-2 row-cols-lg-6">
         <Col md={1}>
           <Dropdown>
-            <Dropdown.Toggle variant="secondary">
+            <Dropdown.Toggle className="btn-btn-opacity" variant="none">
               {specialization ? specialization.title : t('requests')}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -80,7 +80,7 @@ export function FindSpecialist() {
         </Col>
         <Col md={1}>
           <Dropdown>
-            <Dropdown.Toggle variant="secondary">
+            <Dropdown.Toggle className="btn-btn-opacity" variant="none">
               {timezone ? timezone : t('timezone')}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -99,7 +99,7 @@ export function FindSpecialist() {
 
         <Col md={1}>
           <Dropdown>
-            <Dropdown.Toggle variant="secondary">
+            <Dropdown.Toggle className="btn-btn-opacity" variant="none">
               {city ? city : t('city')}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -118,7 +118,7 @@ export function FindSpecialist() {
 
         <Col md={1}>
           <Dropdown>
-            <Dropdown.Toggle variant="secondary">
+            <Dropdown.Toggle className="btn-btn-opacity" variant="none">
               {gender ? gender : t('gender')}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -136,7 +136,7 @@ export function FindSpecialist() {
         <Col md={2} className="specialization-button-container">
           <Button
             variant="primary"
-            className="specialization-button"
+            className="btn-btn-main"
             onClick={redirectToPickSpecialist}
           >
             {t("pickforme")}
