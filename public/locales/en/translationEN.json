@@ -222,8 +222,7 @@
     }
   },
   "howWork": {
-    "title": "How does the service work?",
-    "subtitle": "How to find a psychologist?",
+    "title": "How does the service work and how to find a psychologist?",
     "description": "We have created a specific algorithm that helps us find the most suitable specialist for you."
   },
   "chat": "Chat",

@@ -10,3 +10,15 @@
 .about-list > li{
     list-style: none;
 }
+
+.aboutus {
+    padding: 0 10rem;
+    background:  rgb(242, 245, 255);
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .aboutus {
+        padding: 0 1rem;
+    }
+}

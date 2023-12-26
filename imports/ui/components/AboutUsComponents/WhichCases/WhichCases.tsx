@@ -17,7 +17,7 @@ export function WhichCases() {
       <Col md={12}>
         <h4 className='about-title'>{t('whichCases.title')}</h4>
       </Col>
-      <Col style={{ textAlign: 'start' }} md={12}>
+      <Col className='about-adult-wrapper' md={12}>
         <h5 style={{ color: 'rgba(39, 47, 134, 0.80)' }} className='about-title-20px'>{t('whichCases.adultTitle')}</h5>
         <ul className='about-list'>
           {casesAdults.map((item) => (
@@ -25,7 +25,7 @@ export function WhichCases() {
           ))}
         </ul>
       </Col>
-      <Col style={{ textAlign: 'start' }} md={12}>
+      <Col className='about-children-wrapper' md={12}>
         <h5 style={{ color: 'rgba(39, 47, 134, 0.80)' }} className='about-title-20px'>{t('whichCases.childrenTitle')}</h5>
         <ul className='about-list'>
           {casesChildrens.map((item) => (
@@ -33,7 +33,7 @@ export function WhichCases() {
           ))}
         </ul>
       </Col>
-      <Col style={{ display: 'flex', justifyContent: 'flex-end', marginLeft: '60rem' }} className="therapy-button-wrapper">
+      <Col style={{ display: 'flex', marginLeft: '40rem', paddingTop: '4rem' }} className="therapy-button-wrapper">
         <Button style={{ fontSize: '20px', height: '45px' }} className="btn-btn-big" onClick={() => goToFindSpec()}>
           {t("enrollButtonLabel")}
         </Button>

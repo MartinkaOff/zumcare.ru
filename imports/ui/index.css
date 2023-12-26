@@ -68,9 +68,9 @@ body {
 
 @media screen and (max-width: 768px) {
   .btn-btn-big {
-    font-size: 18px;
+    font-size: 12px !important;
     width: 266px;
-    height: 60px;
+    height: 45px;
   }
   .title {
     font-size: 24.985px;

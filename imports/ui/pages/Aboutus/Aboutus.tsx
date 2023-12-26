@@ -11,14 +11,12 @@ import './Aboutus.css';
 
 export function Aboutus() {
   return (
-    <Container style={{ textAlign: 'center' }}>
-      <Card style={{ padding: '0 10rem', background: 'rgb(242, 245, 255)' }}>
-        <Title />
-        <AboutService />
-        <WhichCases />
-        <WhyZumcare />
-        <HowWork />
-      </Card>
-    </Container>
+    <Card className='aboutus'>
+      <Title />
+      <AboutService />
+      <WhichCases />
+      <WhyZumcare />
+      <HowWork />
+    </Card>
   );
 }

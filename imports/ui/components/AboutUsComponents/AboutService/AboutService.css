@@ -169,3 +169,73 @@
 .about-whyZumcare-fact-block {
     text-align: left;
 }
+
+.about-adult-wrapper {
+    padding-left: 2rem !important;
+    text-align: start;
+}
+
+.about-children-wrapper {
+    padding-left: 2rem !important;
+    text-align: start;
+}
+
+@media screen and (max-width: 768px) {
+    .about-title {
+        font-size: 30px;
+    }
+    .about-service-text {
+        font-size: 20px;
+    }
+    .about-service-text-21px {
+        font-size: 17px;
+    }
+    .about-list-item {
+        font-size: 15px;
+    }
+    .about-list {
+        width: 400px;
+    }
+    .about-adult {
+        background-position-y: 20em;
+        background-position-x: 30em;
+        background-size: 250px 350px;
+    }
+    .whyZumcareItems {
+        margin-top: 5rem;
+    }
+    .whyZumcareItem {
+        width: 230px;
+    }
+    .about-whyZumcare-fact {
+        height: 440px;
+        background-position-x: -1em;
+        background-position-y: 10.5rem;
+        background-size: 470px 270px;
+    }
+    .about-whyZumcare-fact-item {
+        width: auto !important;
+        margin-left: 27rem;
+        margin-left: 18rem !important;
+    }
+
+    @media screen and (max-width: 500px) {
+        .whyZumcareItems {
+            display: block;
+            margin-left: 3rem;
+            margin-top: 9rem;
+        }
+        .whyZumcareItem {
+            width: 310px;
+        }
+        .about-whyZumcare-fact-item {
+            margin-left: 0 !important;
+        }
+        .about-whyZumcare-fact {
+            height: 610px !important;
+            background-position-x: 9em;
+            background-position-y: 21.5rem;
+        }
+        
+    }
+}

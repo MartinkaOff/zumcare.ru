@@ -28,6 +28,8 @@ export function SpecialistsList({
 
   const filterArray: Specialist[] = [];
 
+  console.log(specialists)
+
   function filterByOptions() {
     if (specialists?.length) {
       if (timezone !== undefined) {

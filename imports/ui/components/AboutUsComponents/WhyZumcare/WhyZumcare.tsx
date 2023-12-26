@@ -37,7 +37,7 @@ export function WhyZumcare() {
           {t('whyZumcare.additionalDescription')}
         </div>
         <div className='about-whyZumcare-fact-block'>
-          <div className='about-list-item' style={{ color: '#2C3599', width: '31rem', marginLeft: '27rem' }}>
+          <div className='about-list-item about-whyZumcare-fact-item' style={{ color: '#2C3599', width: '31rem', marginLeft: '27rem' }}>
             Наличие диплома важно, но не всегда гарантирует профессионализм.
             Диплом свидетельствует о заинтересованности человека в психотерапии,
             его глубоких знаниях и готовности посвятить всю жизнь помощи окружающим.

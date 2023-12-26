@@ -1,20 +1,28 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from "react-router-dom";
 
 export function HowWork() {
   const { t } = useTranslation();
 
+  let history = useHistory();
+
+  const goToFindSpec = () => {
+    history.push("/specialists");
+  };
+
   return (
     <Row className='about-howWork center'>
       <Col md={8}>
-        <h4>
+        <Button style={{ fontSize: '20px', height: '45px' }} className="btn-btn-big" onClick={() => goToFindSpec()}>
+          {t("enrollButtonLabel")}
+        </Button>
+        <h4 className='about-title'>
           {t('howWork.title')}
-          <br />
-          {t('howWork.subtitle')}
         </h4>
       </Col>
-      <Col md={8} style={{ paddingTop: '1rem' }}>
+      <Col className='about-list-item' md={8}>
         {t('howWork.description')}
         <br />
         {/* Add your image or icon here */}

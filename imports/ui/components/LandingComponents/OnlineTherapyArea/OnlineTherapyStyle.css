@@ -44,7 +44,7 @@
 }
 
 .therapy-button-wrapper {
-  padding-top: 2rem;
+  padding-top: 3rem;
   text-align: center;
 }
 
@@ -99,6 +99,13 @@
   .therapy-element {
     margin: 0;
   }
+  .therapy-button-wrapper {
+    margin-left: 29rem !important;
+    padding-top: 0rem !important;
+  }
+  /* .therapy-button-wrapper button {
+    font-size: 12px !important;
+  } */
 }
 
 @media screen and (max-width: 576px) {
@@ -133,5 +140,8 @@
   }
   .therapy-container-wrapper {
     height: 820px;
+  }
+  .therapy-button-wrapper {
+    margin-left: 5rem !important;
   }
 }
