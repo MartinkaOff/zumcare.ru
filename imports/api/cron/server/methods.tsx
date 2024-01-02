@@ -43,7 +43,7 @@ function sendEmail(session: Session, now) {
     const text =
       'Добрый день, привет от команды zumcare. Вы забронировали встречу в ' +
       session.schedule.toLocaleString("kk-KZ", { timeZone: 'Asia/Almaty' }) +
-      ' вот ссылка для входа : http://dev.zoomcare.kz/conference/' +
+      ' вот ссылка для входа : http://healthbalance.pro/conference/' +
       session._id;
 
 

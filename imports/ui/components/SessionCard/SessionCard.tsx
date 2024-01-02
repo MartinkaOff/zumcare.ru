@@ -63,7 +63,7 @@ export function SessionCard(session: Session) {
 Дата сеанса: ${session?.schedule.toLocaleString()}
 Причина отмены: ${cancelMessage}
 Если причина является уважительной, отмените сессию 
-http://dev.zoomcare.kz/session/${session._id}
+http://healthbalance.pro/session/${session._id}
 `};
       Meteor.call('sessions.messageCancel', messageCancelForAdmin,
         Swal.fire({

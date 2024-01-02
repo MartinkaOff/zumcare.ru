@@ -20,7 +20,7 @@ export function NotificationPush(text) {
         icon: '/logo.svg',
         body: text,
         data: {
-            url: 'http://dev.zoomcare.kz/sessions'
+            url: 'http://healthbalance.proz/sessions'
         }
     };
 

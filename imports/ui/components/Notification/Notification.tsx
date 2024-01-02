@@ -35,8 +35,8 @@ export function Notification(sessions, user, messages, history, t) {
                     || session?.specialistId === user?._id && messagesFilter.length !== 0) {
 
                     if (history.location.pathname !== `/session/${session._id}`) {
-                        startTwoNotification(`${t("newMail")} https://dev.zoomcare.kz/session/${session._id}`,
-                            <a href={`https://dev.zoomcare.kz/session/${session._id}`}>{t("newMail")}</a>)
+                        startTwoNotification(`${t("newMail")} https://healthbalance.pro/session/${session._id}`,
+                            <a href={`https://healthbalance.pro/session/${session._id}`}>{t("newMail")}</a>)
 
                         Meteor.call('messages.read', session._id, user)
                         messagesFilter.map(messages => messages.read = true);

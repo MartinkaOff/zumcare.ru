@@ -72,7 +72,7 @@ Meteor.methods({
         from: 'Zoomcare - Психологическая поддержка сотрудников <zn@healthbalance.kz>',
         to: email,
         subject: 'Сброс пароля',
-        text: `Ссылка для восстановления пароля https://dev.zoomcare.kz/reset-password/?email=${email}`
+        text: `Ссылка для восстановления пароля https://healthbalance.pro/reset-password/?email=${email}`
       });
     } else {
       throw new Meteor.Error(

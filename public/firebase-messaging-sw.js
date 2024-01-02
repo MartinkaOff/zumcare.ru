@@ -20,7 +20,7 @@ messaging.onBackgroundMessage((payload) => {
   });
   self.addEventListener('notificationclick', function(event) {
     event.notification.close();
-    const url = 'https://dev.zoomcare.kz/sessions'; // Замените на URL, на который хотите перейти
+    const url = 'https://healthbalance.pro/sessions'; // Замените на URL, на который хотите перейти
     event.waitUntil(clients.openWindow(url));
   });
 });
