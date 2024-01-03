@@ -45,11 +45,11 @@ export function BeforeConference({ ID, Session, sessionParams }) {
   return (
     <Card className='text-center'>
       <Card.Body>
-        <Card.Title>{t("assessment")}</Card.Title>
+        <Card.Title style={{ fontSize: '15px' }}>{t("assessment")}</Card.Title>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId='rating'>
-            <Form.Label>{t("feelingBeforeSession")}</Form.Label>
-            <div className='d-flex justify-content-center'>
+            <Form.Label style={{ fontSize: '20px' }}>{t("feelingBeforeSession")}</Form.Label>
+            <div style={{ fontSize: "20px" }} className='d-flex justify-content-center'>
               {[1, 2, 3, 4, 5].map((value) => (
                 <div key={value} className='mx-2'>
                   <Form.Check

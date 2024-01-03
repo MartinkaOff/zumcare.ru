@@ -32,7 +32,7 @@ export function SpecialistCard({
       <Card className='specialist_card'>
         <div className='specialist_card-top'>
           {!isPhotoLoading ? (
-            <Card.Img className='specialist_card_img' style={{ borderRadius: '100%' }} variant='top' src={specialistPhoto?.photo} />
+            <Card.Img className='specialist_card_img' variant='top' src={specialistPhoto?.photo} />
           ) : <Loading />}
         </div>
         {/* <Card.Img variant='top' src={specialistPhoto?.photo} /> */}
