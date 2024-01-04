@@ -23,8 +23,6 @@ export function CorpSignup() {
   const { companies } = useMultipleCompanies();
   const companiesList = companies.map(item => item.company)
 
-  console.log(companiesList)
-
   const onSubmitHandler = (form) => {
     console.log(form)
     Meteor.call('users.insert', form, (err, res) => {

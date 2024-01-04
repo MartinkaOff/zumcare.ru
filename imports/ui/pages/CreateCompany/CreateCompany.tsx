@@ -23,8 +23,6 @@ export function CreateCompany() {
 
     const clientWithCompany = clients.filter(client => client.company)
 
-    console.log(clientWithCompany)
-
     const onSubmitHandler = (form) => {
         Meteor.call(
             'companies.insert',
