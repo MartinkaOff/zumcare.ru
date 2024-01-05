@@ -140,7 +140,7 @@ http://healthbalance.pro/session/${session._id}
         return (
           <td>
             <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.cancelSession}</Tooltip>}>
-              <Button onClick={openModalCancle} variant='danger'>
+              <Button className='btn btn-btn-main' onClick={openModalCancle} variant='danger'>
                 {t('cancel')}
               </Button>
             </OverlayTrigger>
@@ -154,7 +154,7 @@ http://healthbalance.pro/session/${session._id}
         return (
           <td>
             <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.cancelSession}</Tooltip>}>
-              <Button variant='danger' onClick={openModalCanclePushAdmin}>
+              <Button className='btn btn-btn-main' variant='danger' onClick={openModalCanclePushAdmin}>
                 {t('cancel')}
               </Button>
             </OverlayTrigger>
@@ -166,7 +166,7 @@ http://healthbalance.pro/session/${session._id}
         return (
           <td>
             <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.cancelSession}</Tooltip>}>
-              <Button variant='danger' onClick={openModalCancle}>
+              <Button className='btn btn-btn-main' variant='danger' onClick={openModalCancle}>
                 {t('cancel')}
               </Button>
             </OverlayTrigger>
@@ -218,10 +218,10 @@ http://healthbalance.pro/session/${session._id}
     if (user === 'manager') {
       return (
         <tr style={{ textAlign: 'center' }}>
-          <td>{session.clientId}</td>
-          <td>{session.specialistName}</td>
-          <td>{session.schedule.toLocaleString()}</td>
-          <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+          <td className='sessions-table-item'>{session.clientId}</td>
+          <td className='sessions-table-item'>{session.specialistName}</td>
+          <td className='sessions-table-item'>{session.schedule.toLocaleString()}</td>
+          <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
         </tr>
       );
     } else if (user === 'admin') {
@@ -257,12 +257,12 @@ http://healthbalance.pro/session/${session._id}
             title={t('confirmCancelSession')}
             closeButton={true}
           />
-          <th scope='row'>{session?._id}</th>
-          <th scope='row'>{session?.clientName}</th>
-          <td>{session?.specialistName}</td>
-          <td>{session.schedule.toLocaleString()}</td>
-          <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
-          <td>{session?.comments}</td>
+          <th className='sessions-table-item' scope='row'>{session?._id}</th>
+          <th className='sessions-table-item' scope='row'>{session?.clientName}</th>
+          <td className='sessions-table-item'>{session?.specialistName}</td>
+          <td className='sessions-table-item'>{session.schedule.toLocaleString()}</td>
+          <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+          <td className='sessions-table-item'>{session?.comments}</td>
           {checkSessionDateAndUserDate()}
         </tr>
       )
@@ -346,14 +346,14 @@ http://healthbalance.pro/session/${session._id}
             title={t("reasonForCancellation")}
             closeButton={true}
           />
-          <th scope='row'>{session?.clientName}</th>
-          <td>{session?.specialistName}</td>
-          <td>{session.schedule.toLocaleString()}</td>
-          <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
-          <td>{session?.comments}</td>
-          <td>{dateSession <= now || now >= notificationFiveMinutes ? linkForSession : waitLinkForSession}</td>
-          <td>
-            <Button style={{ width: '6em' }} onClick={navigateToSession}>{t('chat')}</Button>
+          <th className='sessions-table-item' scope='row'>{session?.clientName}</th>
+          <td className='sessions-table-item'>{session?.specialistName}</td>
+          <td className='sessions-table-item'>{session.schedule.toLocaleString()}</td>
+          <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+          <td className='sessions-table-item'>{session?.comments}</td>
+          <td className='sessions-table-item'>{dateSession <= now || now >= notificationFiveMinutes ? linkForSession : waitLinkForSession}</td>
+          <td className='sessions-table-item'>
+            <Button className='btn btn-btn-main' style={{ width: '6em' }} onClick={navigateToSession}>{t('chat')}</Button>
           </td>
           {checkSessionDateAndUserDate()}
         </tr>

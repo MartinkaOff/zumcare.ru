@@ -17,23 +17,16 @@ export function SpecialistsInfoArea() {
     useMultipleSpecialists();
   let history = useHistory();
 
-  const [randomArraySpec, setRandomArraySpec] = useState(specialists);
+  const [randomArraySpec, setRandomArraySpec] = useState<Specialist[]>([]);
 
-  // const shuffleArray = () => {
-  //   // Создаем копию массива и перемешиваем его
-  //   const newArray = _shuffle([...array]);
+  if (randomArraySpec.length == 0 && specialists.length !== 0 && !isSpecialistsLoading) {
+    setRandomArraySpec(specialists)
+  }
 
-  //   // Обновляем состояние компонента
-  //   setArray(newArray);
-  // };
-
-  useEffect(() => {
+  if (JSON.stringify(randomArraySpec) === JSON.stringify(specialists) && randomArraySpec.length !== 0) {
     const newArray = _shuffle([...randomArraySpec]);
-
-    // Обновляем состояние компонента
     setRandomArraySpec(newArray);
-  }, [])
-
+  }
 
   return !isSpecialistsLoading ? (
     <Container>

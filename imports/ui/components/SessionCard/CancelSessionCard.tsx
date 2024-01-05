@@ -50,10 +50,10 @@ export function CancelSessionCard(session: Session) {
     if (user === 'manager') {
 
       return <tr style={{ 'textAlign': 'center' }}>
-        <th scope='row'>{session.clientId}</th>
-        <td>{session.specialistName}</td>
-        <td>{session.schedule.toLocaleString()}</td>
-        <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+        <th className='sessions-table-item' scope='row'>{session.clientId}</th>
+        <td className='sessions-table-item'>{session.specialistName}</td>
+        <td className='sessions-table-item'>{session.schedule.toLocaleString()}</td>
+        <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
       </tr>
     } else {
       return <tr style={{ 'textAlign': 'center' }}>
@@ -76,11 +76,11 @@ export function CancelSessionCard(session: Session) {
           closeButton={true}
         />
         {user === 'admin' ? <th scope='row'>{session._id}</th> : undefined}
-        <th scope='row'>{session.clientName}</th>
-        <td>{session.specialistName}</td>
-        <td>{session.schedule.toLocaleString()}</td>
-        <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
-        <td>{session.comments}</td>
+        <th className='sessions-table-item' scope='row'>{session.clientName}</th>
+        <td className='sessions-table-item'>{session.specialistName}</td>
+        <td className='sessions-table-item'>{session.schedule.toLocaleString()}</td>
+        <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+        <td className='sessions-table-item'>{session.comments}</td>
         {hiddenRemoveButton()}
       </tr>
     }

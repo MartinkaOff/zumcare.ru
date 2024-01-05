@@ -57,9 +57,9 @@ export function PastSessionCard(session: Session) {
   function renderSpecialistPastCard() {
     if (user === 'manager') {
       return <tr style={{ 'textAlign': 'center' }}>
-        <td>{session.specialistName}</td>
+        <td className='sessions-table-item'>{session.specialistName}</td>
         {session.schedule.toLocaleString()}
-        <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+        <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
       </tr>
     } else {
       return <tr style={{ 'textAlign': 'center' }}>
@@ -81,12 +81,12 @@ export function PastSessionCard(session: Session) {
           title={t('sessionsTable.confirmRemove')}
           closeButton={true}
         />
-        {user === 'admin' ? <th scope='row'>{session._id}</th> : undefined}
-        <th scope='row'>{session.clientName}</th>
-        <td>{session.specialistName}</td>
-        <td>{session.schedule.toLocaleString()}</td>
-        <td>{session?.online === 'yes' ? t('yes') : t('no')}</td>
-        <td>{session.comments}</td>
+        {user === 'admin' ? <th className='sessions-table-item' scope='row'>{session._id}</th> : undefined}
+        <th className='sessions-table-item' scope='row'>{session.clientName}</th>
+        <td className='sessions-table-item'>{session.specialistName}</td>
+        <td className='sessions-table-item'>{session.schedule.toLocaleString()}</td>
+        <td className='sessions-table-item'>{session?.online === 'yes' ? t('yes') : t('no')}</td>
+        <td className='sessions-table-item'>{session.comments}</td>
         {hiddenRemoveButton()}
       </tr>
     }

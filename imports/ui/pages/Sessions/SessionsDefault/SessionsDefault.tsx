@@ -7,6 +7,8 @@ import { Loading } from '../../../components/Loading/Loading';
 import { useClient } from '../../../../helpers/hooks/useClient';
 import { useSpecialist } from '../../../../helpers/hooks/useSpecialist';
 
+import '../Sessions.css'
+
 export function SessionsDefault({ specialistManager }) {
   const { specialist } = useSpecialist();
   const { client } = useClient();
@@ -33,16 +35,17 @@ export function SessionsDefault({ specialistManager }) {
     return (
       <Table className='table table-bordered' style={{ marginTop: '1em' }}>
         <thead style={{ textAlign: 'center' }}>
-          <tr>
-            {user === 'admin' ? <th scope='col'>{t("sessionId")}</th> : undefined}
-            <th scope='col'>{t('client')}</th>
-            <th scope='col'>{t('specialist')}</th>
-            <th scope='col'>{t('date')}</th>
-            <th scope='col'>{t('online')}</th>
-            <th scope='col'>{t('comment')}</th>
-            <th scope='col'>{t('link')}</th>
-            <th scope='col'></th>
-            {user === 'specialist' && <th scope='col'></th>}
+          <tr style={{ border: 'none' }}>
+            {user === 'admin' ? <th className='sessions-table-title' scope='col'>{t("sessionId")}</th> : undefined}
+            <th className='sessions-table-title' scope='col'>{t('client')}</th>
+            <th className='sessions-table-title' scope='col'>{t('specialist')}</th>
+            <th className='sessions-table-title' scope='col'>{t('date')}</th>
+            <th className='sessions-table-title' scope='col'>{t('online')}</th>
+            <th className='sessions-table-title' scope='col'>{t('comment')}</th>
+            <th className='sessions-table-title' scope='col'>{t('link')}</th>
+            <th className='sessions-table-title' scope='col'></th>
+            <th className='sessions-table-title' scope='col'></th>
+            {/* {user === 'specialist' && <th scope='col'></th>} */}
             {/* {hiddenCompleteButton()} */}
           </tr>
         </thead>
