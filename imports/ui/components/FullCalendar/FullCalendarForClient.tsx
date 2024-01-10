@@ -17,6 +17,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { tooltipsObject } from '../../../helpers/services/tooltipsObject'
 
 import './FullCalendarComponent.css'
+import { ModWorkDays } from './ModWorkDays'
 
 export function FullCalendarForClient({ updateData }) {
 
@@ -41,16 +42,37 @@ export function FullCalendarForClient({ updateData }) {
 
   const [selectedDays, setSelectedDays] = useState<Date[]>([]);
 
+  const [dateInfo, setDateInfo] = useState(workDaysDates[0])
+
+  const optionsForModWorkDays = {
+    workDaysDates: workDaysDates,
+    dateInfo: dateInfo,
+  }
 
   //Получение html элементов по дата атрибутам - для смены цвета бэкграунда
 
+  // const dataDateElements = document.querySelectorAll('[data-date]')
+  // dataDateElements.forEach(item => {
+  //   if (workDaysDates !== undefined) {
+  //     workDaysDates.forEach(work => {
+  //       //@ts-ignore
+  //       if (item.dataset.date === work.title) {
+  //         item.classList.add('fc-active')
+  //       }
+  //     })
+  //   }
+  // })
   const dataDateElements = document.querySelectorAll('[data-date]')
   dataDateElements.forEach(item => {
     if (workDaysDates !== undefined) {
       workDaysDates.forEach(work => {
         //@ts-ignore
         if (item.dataset.date === work.title) {
-          item.classList.add('fc-active')
+          if (work.class === 'fc-active') {
+            item.classList.add('fc-active')
+          } else {
+            item.classList.add('fc-mod')
+          }
         }
       })
     }
@@ -107,6 +129,7 @@ export function FullCalendarForClient({ updateData }) {
   // События при клике на дату
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
+    console.log(selectInfo)
     const selectInfoStartDate = selectInfo.start.toDateString();
     const selectInfoStartStr = selectInfo.startStr;
     const dataDateElements = document.querySelectorAll('[data-date]')
@@ -177,26 +200,6 @@ export function FullCalendarForClient({ updateData }) {
     }
   }
 
-  //Манипуляции с датой и временем
-
-  function getTimeFromMins(mins) {
-    if (step !== null) {
-      let hours = Math.trunc(mins / 60);
-      let minutes = mins % 60;
-      // return hours + ':' + minutes;
-      return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '00' : minutes}:00`;
-    }
-  };
-
-  function convertMinAndMaxTime(time) {
-    if (time !== undefined) {
-      const hour = time.getHours();
-      const minutes = time.getMinutes();
-      const seconds = time.getSeconds();
-      return `${hour}:${minutes < 10 ? '00' : minutes}:${seconds < 10 ? '00' : seconds}`
-    }
-  }
-
   return (
     <div className='demo-app'>
       <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.guideCalendarForClient}</Tooltip>}>
@@ -226,17 +229,24 @@ export function FullCalendarForClient({ updateData }) {
             showNonCurrentDates={false}
             navLinks={true}
             // events={initialEvents}
-            slotMinTime={workDaysDates !== undefined ? convertMinAndMaxTime(minTime) : '08:00:00'}
-            slotMaxTime={workDaysDates !== undefined ? convertMinAndMaxTime(maxTime) : '23:00:00'}
-            slotDuration={workDaysDates !== undefined ? getTimeFromMins(step) : '01:00:00'}
-            slotLabelInterval={workDaysDates !== undefined ? getTimeFromMins(step) : '01:00:00'}
+            slotMinTime={ModWorkDays(optionsForModWorkDays, 'minTime')}
+            slotMaxTime={ModWorkDays(optionsForModWorkDays, 'maxTime')}
+            slotDuration={ModWorkDays(optionsForModWorkDays, 'step')}
+            slotLabelInterval={ModWorkDays(optionsForModWorkDays, 'step')}
             slotLabelFormat={{
               hour: 'numeric',
               minute: '2-digit'
             }}
             eventsSet={handleEvents}
+            validRange={{ start: new Date() }}
+            datesSet={(info) => {
+              //@ts-ignore
+              if (dateInfo.startStr !== info.startStr) {
+                //@ts-ignore
+                setDateInfo(info);
+              }
+            }}
           />
-
         </div>
       </OverlayTrigger>
     </div>

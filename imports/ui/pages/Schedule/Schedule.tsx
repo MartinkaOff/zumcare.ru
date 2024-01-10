@@ -47,6 +47,8 @@ export function Schedule({ onHide }) {
 
   registerLocale('ru', ru)
 
+  console.log(schedules)
+
   const handleDayClick: DayClickEventHandler = (day, modifiers) => {
     const newSelectedDays = [...selectedDays];
     if (modifiers.selected) {
@@ -223,6 +225,8 @@ export function Schedule({ onHide }) {
       return
     }
   }
+
+  // console.log(timeWorkData)
 
   return !isScheduleLoading ? (
     <Container>

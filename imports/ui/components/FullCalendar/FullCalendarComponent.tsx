@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   EventApi,
   DateSelectArg,
   EventClickArg,
   EventContentArg
 } from '@fullcalendar/core'
-import { Button, OverlayTrigger } from 'react-bootstrap';
+import { Button, OverlayTrigger, Row, Form, Col } from 'react-bootstrap';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction'
 import { useSpecialist } from '../../../helpers/hooks/useSpecialist';
 import ruLocale from '@fullcalendar/core/locales/ru';
 import kkLocale from '@fullcalendar/core/locales/kk';
@@ -21,6 +21,12 @@ import { Tooltip } from 'react-bootstrap';
 import { tooltipsObject } from '../../../helpers/services/tooltipsObject';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
+import { PopupModal } from '../PopupModal/PopupModal';
+import { ErrorMessage, Formik } from 'formik';
+import DatePicker from "react-datepicker";
+import ru from 'date-fns/locale/ru'
+import { ModWorkDays } from './ModWorkDays';
+import { convertDateToString } from '../../../helpers/services/convertDateToString';
 import './FullCalendarComponent.css'
 
 export function FullCalendarComponent({ timeWorkData, handleClickState }) {
@@ -42,6 +48,25 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
   const workDaysDates = currentSpecSchedule[0]?.workDays.map(item => item)
   const uniqWorkDaysDates = uniqBy(workDaysDates, 'title')
   const [deleteMod, setDeleteMod] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [showModalSettings, setShowModalSettings] = useState(false);
+
+  const closeModal = () => {
+    setShowModalSettings(false);
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModalSettings = () => {
+    setShowModalSettings(false);
+  };
+
+  const openModalSettings = () => {
+    setShowModalSettings(true);
+  };
   // Переключение на deleteMod
   const handleDeleteModeToggle = () => {
     setDeleteMod(!deleteMod)
@@ -52,6 +77,7 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
   }
   // Событие при котором события сохраняются в currentEvents
   const handleEvents = (events: EventApi[]) => {
+
     //@ts-ignore
     setCurrentEvents(events)
   }
@@ -64,7 +90,11 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
       uniqWorkDaysDates.forEach(work => {
         //@ts-ignore
         if (item.dataset.date === work.title) {
-          item.classList.add('fc-active')
+          if (work.class === 'fc-active') {
+            item.classList.add('fc-active')
+          } else {
+            item.classList.add('fc-mod')
+          }
         }
       })
     }
@@ -101,11 +131,13 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
     initialEvents.push(event)
   })
 
+  const [selectInfoState, setSelectInfoState] = useState('');
 
   //События при клике на дату
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-
+    openModal();
+    setSelectInfoState(selectInfo)
     const selectInfoStartStr = selectInfo.startStr;
     const dataDateElements = document.querySelectorAll('[data-date]')
 
@@ -133,13 +165,13 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
     if (!deleteMod && selectInfo.allDay) {
       calendarApi.addEvent({
         id: createEventId(),
-        title: undefined,
+        title: selectInfo.startStr,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         editable: false,
         backgroundColor: 'green',
         display: 'block',
-        borderColor: 'green'
+        borderColor: 'white'
       })
 
       dataDateElements.forEach(item => {
@@ -216,27 +248,9 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
           //@ts-ignore
           `${eventContentHour}:${eventContentMinutes < 10 ? '00' :
             eventContentMinutes}`}</b>
+        {/* <b>{`${eventContent.event.title}-${eventContent.event.title}`}</b> */}
       </>
     )
-  }
-
-  //Манипуляции со временем и датой
-
-  function getTimeFromMins(mins) {
-    let hours = Math.trunc(mins / 60);
-    let minutes = mins % 60;
-    // return hours + ':' + minutes;
-    return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '00' : minutes}:00`;
-  };
-
-  function convertMinAndMaxTime(time) {
-    if (time !== undefined) {
-      const hour = time.getHours();
-      const minutes = time.getMinutes();
-      const seconds = time.getSeconds();
-      // {`${eventContentHour}:${eventContentMinutes < 10? '00' : eventContentMinutes}`}
-      return `${hour}:${minutes < 10 ? '00' : minutes}:${seconds < 10 ? '00' : seconds}`
-    }
   }
 
   //Событие подтверждения. Сохранение измений внесенные в календарь
@@ -284,9 +298,466 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
 
   handleClickState(onSubmitChanges);
 
+  const [testStep, setTestStep] = useState(timeWorkData[0]?.step);
+  const [workRange, setWorkRange] = useState('')
+
+  const [minTimeSelect, setMinTimeSelect]: Date = useState();
+  //@ts-ignore
+  const [maxTimeSelect, setMaxTimeSelect]: Date = useState();
+
+  function viewInputValue(timeWork) {
+    if (timeWork !== undefined) {
+      return `${timeWork.getHours()}:${timeWork.getMinutes() < 10 ? '00' : timeWork.getMinutes()}`
+    }
+  }
+
+  function validScheduleTime(timeWork) {
+    if (timeWork === undefined) {
+
+      if (timeWorkData[0]?.minTime !== undefined) {
+        return timeWorkData[0]?.minTime
+      } else {
+        return new Date('Wed May 31 2023 00:00:00 GMT+0600 (Восточный Казахстан)')
+      }
+    } else {
+      return timeWork
+    }
+  }
+
+  const defaultMaxTime = new Date('Wed May 31 2023 23:00:00 GMT+0600 (Восточный Казахстан)')
+
+  function hideAcceptBtn() {
+    if (timeWorkData !== undefined && maxTimeSelect !== undefined && minTimeSelect !== undefined || timeWorkData.length > 0) {
+      return (
+        <Button
+          style={{
+            margin: '3em auto',
+            width: '15em'
+          }}
+          variant='primary'
+          type='submit'
+          // onClick={() => setTimeWork(handleClickState)}
+          // onClick={() => (setClickState(true), setTimeWork())}
+          onClick={() => customWorkDay()}
+        >
+          {t('accept')}
+        </Button>
+      )
+    } else {
+      return
+    }
+  }
+
+  const [dateInfo, setDateInfo] = useState('')
+
+  function customWorkDay() {
+    if (!deleteMod) {
+      const specialistUserId = specialist.userId;
+      const workDaysArray: object[] = uniqWorkDaysDates;
+
+      currentDay.forEach(item => {
+        const obj = {
+          id: nanoid(),
+          //@ts-ignore
+          title: item.startStr,
+          //@ts-ignore
+          start: item.start,
+          //@ts-ignore
+          end: item.endStr,
+          minTime: minTimeSelect,
+          maxTime: maxTimeSelect,
+          step: testStep,
+          class: 'fc-mod'
+        }
+        workDaysArray.push(obj)
+      })
+
+      const uniqWorkDaysArray = uniqBy(workDaysArray, 'title');
+
+      const data = {
+        specialist: specialist.name,
+        specialistUserId: specialistUserId,
+        workDays: uniqWorkDaysArray,
+      }
+      Meteor.call(
+        'schedule.customWorkDay',
+        data,
+        specialistUserId,
+        Swal.fire({
+          title: 'Success!',
+          text: 'Ваше расписание успешно изменено',
+          icon: 'success',
+        })
+      )
+    }
+  }
+
+  const optionsForModWorkDays = {
+    workDaysDates: workDaysDates,
+    dateInfo: dateInfo,
+  }
+
+  const [arrayDays, setArrayDays] = useState([]);
+
+
+  const dayCellContent = (arg) => {
+
+    if (arrayDays.length === 0) {
+      setArrayDays((prevArrayDays) => [...prevArrayDays, arg.date]);
+    }
+    const options = { weekday: 'short' };
+
+    const shortDayOfWeek = new Intl.DateTimeFormat('en-US', options).format(arg.date);
+
+    return <div className="inactive-day">{arg.dayNumberText}</div>;
+  };
+
+  const WorkRangeCheckbox = ({ value, label, onChange, isChecked }) => (
+    <div>
+      <input
+        type="checkbox"
+        id={`workRange-${value}`}
+        value={value}
+        onChange={onChange}
+        checked={isChecked}
+      />
+      <label htmlFor={`workRange-${value}`}>{label}</label>
+    </div>
+  );
+
+  const [selectedWorkRanges, setSelectedWorkRanges] = useState([]);
+  const filterWorkToRange = arrayDays.filter((item) => {
+    const options = { weekday: 'short' };
+    //@ts-ignore
+    const dayShortName = new Intl.DateTimeFormat('en-US', options).format(item)
+    //@ts-ignore
+    return selectedWorkRanges.includes(dayShortName);
+  });
+
+
+  const handleCheckboxChange = (value) => {
+    if (selectedWorkRanges.includes(value)) {
+      setSelectedWorkRanges(selectedWorkRanges.filter((item) => item !== value));
+    } else {
+      setSelectedWorkRanges([...selectedWorkRanges, value]);
+    }
+  };
+
+
+  const workRanges = [
+    { value: 'Mon', label: 'Понедельник' },
+    { value: 'Tue', label: 'Вторник' },
+    { value: 'Wed', label: 'Среда' },
+    { value: 'Thu', label: 'Четверг' },
+    { value: 'Fri', label: 'Пятница' },
+    { value: 'Sat', label: 'Суббота' },
+    { value: 'Sun', label: 'Воскресенье' },
+  ];
+
+  function submitActiveWorkDays() {
+    if (!deleteMod) {
+      const specialistUserId = specialist.userId;
+      const specialistName = specialist.name;
+      const workDaysArray: object[] = uniqWorkDaysDates;
+
+      filterWorkToRange.forEach(item => {
+        const obj = {
+          id: nanoid(),
+          //@ts-ignore
+          title: convertDateToString(item),
+          //@ts-ignore
+          start: item,
+          //@ts-ignore
+          end: convertDateToString(item),
+          minTime: minTimeSelect,
+          maxTime: maxTimeSelect,
+          step: testStep,
+          class: 'fc-active'
+        }
+        workDaysArray.push(obj)
+      })
+
+      const uniqWorkDaysArray = uniqBy(workDaysArray, 'title');
+
+      const data = {
+        specialist: specialist.name,
+        specialistUserId: specialistUserId,
+        workDays: uniqWorkDaysArray
+      }
+      Meteor.call(
+        'schedule.insert',
+        data,
+        specialistName,
+        specialistUserId,
+        Swal.fire({
+          title: 'Success!',
+          text: 'Ваше расписание успешно изменено',
+          icon: 'success',
+        })
+      )
+    }
+  }
+
   return (
     <div className='demo-app'>
       {renderSidebar()}
+
+      <PopupModal
+        show={showModal}
+        onHide={closeModal}
+        content={
+          <Col lg='28' md='12' sm='12'>
+            <Formik
+              // onSubmit={}
+              initialValues={{
+                step: testStep
+              }}
+            >
+              {({
+                handleSubmit,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }) => (
+                <Form style={{
+                  width: '80%', margin: '1em auto',
+                  display: /* `${timeWorkData.length > 0 ? 'flex' : 'none'}` */'flex',
+                  flexWrap: 'wrap'
+                }}
+                  noValidate onSubmit={handleSubmit}>
+                  <Row style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.step}</Tooltip>}>
+                      <Form.Group
+                        as={Col}
+                        lg='3'
+                        md='6'
+                        sm='12'
+                        controlId='step'
+                      >
+                        <Form.Label>{t('step')}</Form.Label>
+                        <Form.Select
+                          name='step'
+                          defaultValue={''}
+                          aria-label='Select'
+                          onChange={(e) => setTestStep(e.target.value)}
+                          isValid={touched.step && !errors.step}
+                          isInvalid={!!errors.step}
+                        >
+                          <option>{t('timeSteps.notChosen')}</option>
+                          <option value='15'>{t('timeSteps.15min')}</option>
+                          <option value='30'>{t('timeSteps.30min')}</option>
+                          <option value='60'>{t('timeSteps.60min')}</option>
+                          <option value='75'>{t('timeSteps.75min')}</option>
+                          <option value='90'>{t('timeSteps.90min')}</option>
+                        </Form.Select>
+                        <span className='error-message'>
+                          <ErrorMessage name='step' />
+                        </span>
+                      </Form.Group>
+                    </OverlayTrigger>
+                    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.workTime}</Tooltip>}>
+                      <Form.Group
+                        as={Col}
+                        lg='3'
+                        md='6'
+                        sm='12'
+                        controlId='step'
+                      >
+                        <Form.Label>{t('scheduleSpecialist.schedule')}</Form.Label>
+                        <div>
+                          <DatePicker
+                            locale={ru}
+                            selected={minTimeSelect}
+                            onChange={(date) => setMinTimeSelect(date)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={testStep}
+                            timeCaption="Time"
+                            dateFormat="p"
+                            customInput={
+                              <Form>
+                                <Form.Control
+                                  defaultValue={viewInputValue(timeWorkData[0]?.minTime)}
+                                  value={viewInputValue(minTimeSelect)}
+                                  style={{ cursor: 'pointer', width: '100%' }} />
+                              </Form>} />
+                          <DatePicker
+                            locale={ru}
+                            selected={maxTimeSelect}
+                            onChange={(date) => setMaxTimeSelect(date)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={testStep}
+                            timeCaption="Time"
+                            dateFormat="p"
+                            minTime={validScheduleTime(minTimeSelect)}
+                            maxTime={defaultMaxTime}
+                            customInput={
+                              <Form>
+                                <Form.Control
+                                  defaultValue={viewInputValue(timeWorkData[0]?.maxTime)}
+                                  value={viewInputValue(maxTimeSelect)}
+                                  style={{ cursor: 'pointer', width: '100%' }} />
+                              </Form>} />
+                        </div>
+                      </Form.Group>
+                    </OverlayTrigger>
+                  </Row>
+                  <OverlayTrigger placement='top' overlay={<Tooltip>{tooltipsObject.acceptSettings}</Tooltip>}>
+                    {() => hideAcceptBtn()}
+                  </OverlayTrigger>
+                </Form>
+              )}
+            </Formik>
+          </Col>
+        }
+        title={selectInfoState.startStr}
+        closeButton={true}
+      />
+      <PopupModal
+        show={showModalSettings}
+        onHide={closeModalSettings}
+        content={
+          <Col lg='28' md='12' sm='12'>
+            <Formik
+              // onSubmit={}
+              initialValues={{
+                step: testStep
+              }}
+            >
+              {({
+                handleSubmit,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }) => (
+                <Form style={{
+                  width: '80%', margin: '1em auto',
+                  display: /* `${timeWorkData.length > 0 ? 'flex' : 'none'}` */'flex',
+                  flexWrap: 'wrap'
+                }}
+                  noValidate onSubmit={handleSubmit}>
+                  <Row style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.step}</Tooltip>}>
+                      <Form.Group
+                        as={Col}
+                        lg='3'
+                        md='6'
+                        sm='12'
+                        controlId='step'
+                      >
+                        <Form.Label>{t('step')}</Form.Label>
+                        <Form.Select
+                          name='step'
+                          defaultValue={''}
+                          aria-label='Select'
+                          onChange={(e) => setTestStep(e.target.value)}
+                          isValid={touched.step && !errors.step}
+                          isInvalid={!!errors.step}
+                        >
+                          <option>{t('timeSteps.notChosen')}</option>
+                          <option value='15'>{t('timeSteps.15min')}</option>
+                          <option value='30'>{t('timeSteps.30min')}</option>
+                          <option value='60'>{t('timeSteps.60min')}</option>
+                          <option value='75'>{t('timeSteps.75min')}</option>
+                          <option value='90'>{t('timeSteps.90min')}</option>
+                        </Form.Select>
+                        <span className='error-message'>
+                          <ErrorMessage name='step' />
+                        </span>
+                      </Form.Group>
+                    </OverlayTrigger>
+                    <Form.Group
+                      as={Col}
+                      lg='3'
+                      md='6'
+                      sm='12'
+                      controlId='workRange'
+                    >
+                      <Form.Label>График работы</Form.Label>
+                      {/* <Form.Select
+                        name='workRange'
+                        defaultValue={''}
+                        aria-label='CheckBox'
+                      // onChange={(e) => setWorkRange(e.target.value)}
+                      // isValid={touched.step && !errors.step}
+                      // isInvalid={!!errors.step}
+                      >
+                      </Form.Select> */}
+                      {workRanges.map((range) => (
+                        WorkRangeCheckbox({
+                          key: range.value,
+                          value: range.value,
+                          label: range.label,
+                          onChange: () => handleCheckboxChange(range.value),
+                          isChecked: selectedWorkRanges.includes(range.value),
+                        })
+                      ))}
+                      <span className='error-message'>
+                        <ErrorMessage name='workRange' />
+                      </span>
+                    </Form.Group>
+                    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.workTime}</Tooltip>}>
+                      <Form.Group
+                        as={Col}
+                        lg='3'
+                        md='6'
+                        sm='12'
+                        controlId='step'
+                      >
+                        <Form.Label>{t('scheduleSpecialist.schedule')}</Form.Label>
+                        <div>
+                          <DatePicker
+                            locale={ru}
+                            selected={minTimeSelect}
+                            onChange={(date) => setMinTimeSelect(date)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={testStep}
+                            timeCaption="Time"
+                            dateFormat="p"
+                            customInput={
+                              <Form>
+                                <Form.Control
+                                  defaultValue={viewInputValue(timeWorkData[0]?.minTime)}
+                                  value={viewInputValue(minTimeSelect)}
+                                  style={{ cursor: 'pointer', width: '100%' }} />
+                              </Form>} />
+                          <DatePicker
+                            locale={ru}
+                            selected={maxTimeSelect}
+                            onChange={(date) => setMaxTimeSelect(date)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={testStep}
+                            timeCaption="Time"
+                            dateFormat="p"
+                            minTime={validScheduleTime(minTimeSelect)}
+                            maxTime={defaultMaxTime}
+                            customInput={
+                              <Form>
+                                <Form.Control
+                                  defaultValue={viewInputValue(timeWorkData[0]?.maxTime)}
+                                  value={viewInputValue(maxTimeSelect)}
+                                  style={{ cursor: 'pointer', width: '100%' }} />
+                              </Form>} />
+                        </div>
+                      </Form.Group>
+                    </OverlayTrigger>
+                  </Row>
+                  <OverlayTrigger placement='top' overlay={<Tooltip>{tooltipsObject.acceptSettings}</Tooltip>}>
+                    <Button onClick={() => submitActiveWorkDays()}>Применить</Button>
+                  </OverlayTrigger>
+                </Form>
+              )}
+            </Formik>
+          </Col>
+        }
+        title={'Настройка расписания'}
+        closeButton={true}
+      />
       <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.guideCalendar}</Tooltip>}>
         <div className='demo-app-main'>
           <FullCalendar
@@ -298,6 +769,7 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
             }}
             initialView='dayGridMonth'
             height={800}
+            handleWindowResize={true}
             editable={true}
             longPressDelay={1}
             //@ts-ignore
@@ -314,16 +786,24 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
             showNonCurrentDates={false}
             navLinks={true}
             // events={initialEvents}
-            slotMinTime={workDaysDates !== undefined ? convertMinAndMaxTime(minTime) : '08:00:00'}
-            slotMaxTime={workDaysDates !== undefined ? convertMinAndMaxTime(maxTime) : '23:00:00'}
-            slotDuration={workDaysDates !== undefined ? getTimeFromMins(step) : '01:00:00'}
-            slotLabelInterval={workDaysDates !== undefined ? getTimeFromMins(step) : '01:00:00'}
+            slotMinTime={ModWorkDays(optionsForModWorkDays, 'minTime')}
+            slotMaxTime={ModWorkDays(optionsForModWorkDays, 'maxTime')}
+            slotDuration={ModWorkDays(optionsForModWorkDays, 'step')}
+            slotLabelInterval={ModWorkDays(optionsForModWorkDays, 'step')}
             slotLabelFormat={{
               hour: 'numeric',
               minute: '2-digit'
             }}
             eventsSet={handleEvents}
             validRange={{ start: new Date() }}
+            datesSet={(info) => {
+              //@ts-ignore
+              if (dateInfo.startStr !== info.startStr) {
+                //@ts-ignore
+                setDateInfo(info);
+              }
+            }}
+            dayCellContent={dayCellContent}
           />
         </div>
       </OverlayTrigger>
@@ -331,6 +811,7 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
       {/* <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.acceptSettings}</Tooltip>}>
         <Button style={{ display: 'block', width: '15em', margin: '2em auto' }} onClick={!deleteMod ? onSubmitChanges : undefined}>{t('accept')}</Button>
       </OverlayTrigger> */}
+      <Button onClick={() => openModalSettings()}>Настроить</Button>
     </div>
   )
 

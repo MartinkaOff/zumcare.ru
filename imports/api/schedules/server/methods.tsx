@@ -27,8 +27,11 @@ Meteor.methods({
 
         const schedule = Schedules.findOne({ workDays: workDay });
 
+        console.log(workDay, schedule)
+
         if (schedule !== undefined) {
             const removeArray = schedule.workDays.filter(item => item.id !== workDay.id);
+            console.log(removeArray)
             Schedules.update(schedule._id, { $set: { workDays: removeArray } });
         }
     },
@@ -59,5 +62,17 @@ Meteor.methods({
         if (schedule !== undefined) {
             Schedules.update(schedule._id, { $set: { ...timeWork } })
         }
+    },
+    'schedule.customWorkDay'(data, specialistUserId) {
+        const schedule = Schedules.findOne({ specialistUserId: specialistUserId });
+        console.log(data)
+
+        if (schedule === undefined) {
+            Schedules.insert(data)
+        } else {
+            Schedules.update(schedule._id, { $set: { workDays: data.workDays } });
+        }
     }
 })
+
+// console.log(Schedules.remove({}))
