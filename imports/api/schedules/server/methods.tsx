@@ -72,7 +72,16 @@ Meteor.methods({
         } else {
             Schedules.update(schedule._id, { $set: { workDays: data.workDays } });
         }
+    },
+    'schedule.resetDays'(specialistUserId) {
+        const schedule = Schedules.findOne({ specialistUserId: specialistUserId })
+        console.log(schedule)
+
+        if (schedule !== undefined) {
+            Schedules.update(schedule._id, { $set: { workDays: undefined });
+        }
     }
+
 })
 
 // console.log(Schedules.remove({}))

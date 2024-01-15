@@ -42,7 +42,7 @@ export function FullCalendarForClient({ updateData }) {
 
   const [selectedDays, setSelectedDays] = useState<Date[]>([]);
 
-  const [dateInfo, setDateInfo] = useState(workDaysDates[0])
+  const [dateInfo, setDateInfo] = useState(workDaysDates !== undefined ? workDaysDates[0] : '')
 
   const optionsForModWorkDays = {
     workDaysDates: workDaysDates,
@@ -143,6 +143,7 @@ export function FullCalendarForClient({ updateData }) {
     if (workDaysDates !== undefined && selectInfo.start.toLocaleDateString() > now.toLocaleDateString() ||
       selectInfoStartDate === now.toDateString() &&
       selectInfo.start.toLocaleTimeString() > now.toLocaleTimeString() && step !== null) {
+      console.log('flex')
 
       workDaysDates.forEach(item => {
         //@ts-ignore

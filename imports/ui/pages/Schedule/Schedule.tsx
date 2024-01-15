@@ -47,8 +47,6 @@ export function Schedule({ onHide }) {
 
   registerLocale('ru', ru)
 
-  console.log(schedules)
-
   const handleDayClick: DayClickEventHandler = (day, modifiers) => {
     const newSelectedDays = [...selectedDays];
     if (modifiers.selected) {
@@ -237,111 +235,6 @@ export function Schedule({ onHide }) {
             <Card.Body>
               <Row>
                 <FullCalendarComponent timeWorkData={timeWorkData} handleClickState={handleClickState} />
-                <Col lg='28' md='12' sm='12'>
-                  <Formik
-                    onSubmit={setTimeStep}
-                    initialValues={{
-                      step: testStep
-                    }}
-                  >
-                    {({
-                      handleSubmit,
-                      handleChange,
-                      values,
-                      touched,
-                      errors,
-                    }) => (
-                      <Form style={{
-                        width: '80%', margin: '1em auto',
-                        display: /* `${timeWorkData.length > 0 ? 'flex' : 'none'}` */'flex',
-                        flexWrap: 'wrap'
-                      }}
-                        noValidate onSubmit={handleSubmit}>
-                        <Row style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.step}</Tooltip>}>
-                            <Form.Group
-                              as={Col}
-                              lg='3'
-                              md='6'
-                              sm='12'
-                              controlId='step'
-                            >
-                              <Form.Label>{t('step')}</Form.Label>
-                              <Form.Select
-                                name='step'
-                                defaultValue={timeWorkData[0]?.step}
-                                aria-label='Select'
-                                onChange={(e) => setTestStep(e.target.value)}
-                                isValid={touched.step && !errors.step}
-                                isInvalid={!!errors.step}
-                              >
-                                <option>{t('timeSteps.notChosen')}</option>
-                                <option value='15'>{t('timeSteps.15min')}</option>
-                                <option value='30'>{t('timeSteps.30min')}</option>
-                                <option value='60'>{t('timeSteps.60min')}</option>
-                                <option value='75'>{t('timeSteps.75min')}</option>
-                                <option value='90'>{t('timeSteps.90min')}</option>
-                              </Form.Select>
-                              <span className='error-message'>
-                                <ErrorMessage name='step' />
-                              </span>
-                            </Form.Group>
-                          </OverlayTrigger>
-                          <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.workTime}</Tooltip>}>
-                            <Form.Group
-                              as={Col}
-                              lg='3'
-                              md='6'
-                              sm='12'
-                              controlId='step'
-                            >
-                              <Form.Label>{t('scheduleSpecialist.schedule')}</Form.Label>
-                              <div>
-                                <DatePicker
-                                  locale={ru}
-                                  selected={minTime}
-                                  onChange={(date) => setMinTime(date)}
-                                  showTimeSelect
-                                  showTimeSelectOnly
-                                  timeIntervals={testStep}
-                                  timeCaption="Time"
-                                  dateFormat="p"
-                                  customInput={
-                                    <Form>
-                                      <Form.Control
-                                        defaultValue={viewInputValue(timeWorkData[0]?.minTime)}
-                                        value={viewInputValue(minTime)}
-                                        style={{ cursor: 'pointer', width: '100%' }} />
-                                    </Form>} />
-                                <DatePicker
-                                  locale={ru}
-                                  selected={maxTime}
-                                  onChange={(date) => setMaxTime(date)}
-                                  showTimeSelect
-                                  showTimeSelectOnly
-                                  timeIntervals={testStep}
-                                  timeCaption="Time"
-                                  dateFormat="p"
-                                  minTime={validScheduleTime(minTime)}
-                                  maxTime={defaultMaxTime}
-                                  customInput={
-                                    <Form>
-                                      <Form.Control
-                                        defaultValue={viewInputValue(timeWorkData[0]?.maxTime)}
-                                        value={viewInputValue(maxTime)}
-                                        style={{ cursor: 'pointer', width: '100%' }} />
-                                    </Form>} />
-                              </div>
-                            </Form.Group>
-                          </OverlayTrigger>
-                        </Row>
-                        <OverlayTrigger placement='top' overlay={<Tooltip>{tooltipsObject.acceptSettings}</Tooltip>}>
-                          {() => hideAcceptBtn()}
-                        </OverlayTrigger>
-                      </Form>
-                    )}
-                  </Formik>
-                </Col>
               </Row>
             </Card.Body>
           </Card>

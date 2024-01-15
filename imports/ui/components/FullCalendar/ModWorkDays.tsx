@@ -11,16 +11,17 @@ interface IOptions {
 
 export function ModWorkDays(options: IOptions, forFuncStart) {
     function findModWorkDay(timeName) {
-        if (options.workDaysDates !== undefined) {
+        if (options.dateInfo !== undefined && options.workDaysDates !== undefined) {
             const modDaysArray = options.workDaysDates?.filter(item => item.title == options.dateInfo?.startStr?.slice(0, 10))
-
-            if (timeName === 'minTime') {
-                if (modDaysArray?.length !== 0) {
-                    return convertMinAndMaxTime(modDaysArray[0].minTime)
-                }
-            } else {
-                if (modDaysArray?.length !== 0) {
-                    return convertMinAndMaxTime(modDaysArray[0].maxTime)
+            if (modDaysArray?.length > 0) {
+                if (timeName === 'minTime') {
+                    if (modDaysArray?.length !== 0) {
+                        return convertMinAndMaxTime(modDaysArray[0].minTime)
+                    }
+                } else {
+                    if (modDaysArray?.length !== 0) {
+                        return convertMinAndMaxTime(modDaysArray[0].maxTime)
+                    }
                 }
             }
         } else if (timeName === 'minTime') {
@@ -31,19 +32,21 @@ export function ModWorkDays(options: IOptions, forFuncStart) {
     }
 
     function findModStepDay() {
-        if (options.workDaysDates !== undefined) {
+        if (options.dateInfo !== undefined && options.workDaysDates !== undefined) {
             const modDaysArray = options.workDaysDates.filter(item => item.title == options.dateInfo?.startStr?.slice(0, 10))
-            // modDaysArray.forEach(item => {
-            //   if (item.title == dateInfo?.startStr?.slice(0, 10)) {
-            //     // console.log(convertMinAndMaxTime(dateInfo.minTime))
-            //   } else {
-            //     console.log('conv')
-            //     console.log(minTime)
-            //    
-            //   }
-            // })
-            if (modDaysArray.length !== 0) {
-                return getTimeFromMins(modDaysArray[0].step)
+            if (modDaysArray?.length > 0) {
+                // modDaysArray.forEach(item => {
+                //   if (item.title == dateInfo?.startStr?.slice(0, 10)) {
+                //     // console.log(convertMinAndMaxTime(dateInfo.minTime))
+                //   } else {
+                //     console.log('conv')
+                //     console.log(minTime)
+                //    
+                //   }
+                // })
+                if (modDaysArray?.length !== 0) {
+                    return getTimeFromMins(modDaysArray[0].step)
+                }
             }
         } else {
             return '01:00:00'

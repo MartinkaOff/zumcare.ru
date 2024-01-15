@@ -5,7 +5,7 @@ import { AdminCabinet } from '../../components/AdminCabinet/AdminCabinet';
 import { ClientCabinet } from '../../components/ClientCabinet/ClientCabinet';
 import { ManagerCabinet } from '../../components/ManagerCabinet/ManagerCabinet';
 import { useTranslation } from 'react-i18next';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 export function Cabinet() {
   const { t } = useTranslation();
@@ -20,15 +20,15 @@ export function Cabinet() {
       return <SpecialistCabinet />;
     } else if (userType === 'admin') {
       return <AdminCabinet />;
-    } else if(userType === 'manager') {
+    } else if (userType === 'manager') {
       history.push('/manager/statistics');
-    }else {
+    } else {
       return <ClientCabinet />;
     }
   }
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#F2F5FF" }}>
       <Container>
         <Row style={{ padding: '2rem 0 0 0' }}>
           <h4>{t('cabinet')}</h4>

@@ -41,6 +41,7 @@ export function FormikFormControlGroup({
         onChange={handleChange}
         isValid={touched && !errors}
         isInvalid={!!errors}
+        style={{ background: "rgba(179, 183, 221, 0.30)" }}
       />
       <span className='error-message'>
         <ErrorMessage name={name} />

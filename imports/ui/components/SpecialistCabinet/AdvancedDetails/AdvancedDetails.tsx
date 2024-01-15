@@ -269,7 +269,7 @@ export function AdvancedDetails({
                             />
                           </Col>
                           <Col md={3} style={{ textAlign: 'center' }}>
-                            <Button onClick={openCityPicker}>{t("find")}</Button>
+                            <Button className='btn-btn-main' onClick={openCityPicker}>{t("find")}</Button>
                           </Col>
                         </Row>
                         <span className='error-message'>
@@ -295,6 +295,7 @@ export function AdvancedDetails({
                             onChange={handleChange}
                             isValid={touched.currency && !errors.currency}
                             isInvalid={!!errors.currency}
+                            style={{ background: "rgba(179, 183, 221, 0.30)" }}
                           >
                             <option value=''>{t("select")}</option>
                             <option value='kzt'>KZT</option>
@@ -310,6 +311,7 @@ export function AdvancedDetails({
                             onChange={handleChange}
                             isValid={touched.price && !errors.price}
                             isInvalid={!!errors.price}
+                            style={{ background: "rgba(179, 183, 221, 0.30)" }}
                           />
                         </InputGroup>
                         <span className='error-message'>
@@ -337,6 +339,7 @@ export function AdvancedDetails({
                           onChange={handleChange}
                           isValid={touched.online && !errors.online}
                           isInvalid={!!errors.online}
+                          style={{ background: "rgba(179, 183, 221, 0.30)" }}
                         >
                           <option value=''>{t("select")}</option>
                           <option value='true'>{t("yes")}</option>
@@ -361,6 +364,7 @@ export function AdvancedDetails({
                           defaultValue={offline}
                           aria-label='Select'
                           onChange={setOfflineFunc}
+                          style={{ background: "rgba(179, 183, 221, 0.30)" }}
                         >
                           <option value=''>{t("select")}</option>
                           <option value='true'>{t("yes")}</option>
@@ -389,6 +393,7 @@ export function AdvancedDetails({
                                 placeholder='No city set'
                                 value={specialist?.city}
                                 disabled
+                                style={{ background: "rgba(179, 183, 221, 0.30)" }}
                               />
                             </Col>
                             <Col md={3} style={{ textAlign: 'center' }}>
@@ -419,6 +424,12 @@ export function AdvancedDetails({
                           options={specializationsOptions}
                           onChange={(e) => setSpecialistSpecializations(e)}
                           classNamePrefix='select'
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              background: "rgba(179, 183, 221, 0.30)"
+                            }),
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
@@ -438,6 +449,12 @@ export function AdvancedDetails({
                           options={methodicsOptions}
                           onChange={(e) => setSpecialistMethodics(e)}
                           classNamePrefix='select'
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              background: "rgba(179, 183, 221, 0.30)"
+                            }),
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
@@ -457,6 +474,12 @@ export function AdvancedDetails({
                           options={languageOptions}
                           onChange={(e) => setSpecialistLanguages(e)}
                           classNamePrefix='select'
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              background: "rgba(179, 183, 221, 0.30)"
+                            }),
+                          }}
                         />
                       </Form.Group>
                     </Row>
@@ -487,6 +510,7 @@ export function AdvancedDetails({
                         <Button
                           onClick={openCertificateModal}
                           style={{ float: 'right' }}
+                          className='btn-btn-main'
                         >
                           {t("add")}
                         </Button>
@@ -522,10 +546,11 @@ export function AdvancedDetails({
                     >
                       <center>
                         <Button
-                          variant='primary'
+                          // variant='primary'
                           type='submit'
                           size='lg'
                           style={{ width: '70%' }}
+                          className='btn-btn-main'
                         >
                           {t("save")}
                         </Button>

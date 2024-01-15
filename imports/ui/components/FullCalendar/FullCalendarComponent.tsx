@@ -15,7 +15,7 @@ import ruLocale from '@fullcalendar/core/locales/ru';
 import kkLocale from '@fullcalendar/core/locales/kk';
 import { useMultipleSchedules } from '../../../helpers/hooks/useMultipleSchedules';
 import { EventInput } from '@fullcalendar/core'
-import { uniqBy } from 'lodash';
+import { set, unescape, uniqBy } from 'lodash';
 import { nanoid } from 'nanoid';
 import { Tooltip } from 'react-bootstrap';
 import { tooltipsObject } from '../../../helpers/services/tooltipsObject';
@@ -28,6 +28,7 @@ import ru from 'date-fns/locale/ru'
 import { ModWorkDays } from './ModWorkDays';
 import { convertDateToString } from '../../../helpers/services/convertDateToString';
 import './FullCalendarComponent.css'
+import { convertMinAndMaxTime } from '../../../helpers/services/convertMinAndMaxTime';
 
 export function FullCalendarComponent({ timeWorkData, handleClickState }) {
 
@@ -53,7 +54,7 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
   const [showModalSettings, setShowModalSettings] = useState(false);
 
   const closeModal = () => {
-    setShowModalSettings(false);
+    setShowModal(false);
   };
 
   const openModal = () => {
@@ -134,54 +135,72 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
   const [selectInfoState, setSelectInfoState] = useState('');
 
   //События при клике на дату
+  const handleDateSelect = async (selectInfo: DateSelectArg) => {
 
-  const handleDateSelect = (selectInfo: DateSelectArg) => {
-    openModal();
-    setSelectInfoState(selectInfo)
-    const selectInfoStartStr = selectInfo.startStr;
-    const dataDateElements = document.querySelectorAll('[data-date]')
+    await setSelectInfoState(selectInfo)
+    let selectTest;
+    selectTest = selectInfo
 
-    if (deleteMod) {
-      //@ts-ignore
-      const removeWorkDays = uniqWorkDaysDates.filter(item => item.title === selectInfoStartStr)
-      //@ts-ignore
-      const removeCurrentDays = currentEvents.filter(item => item.startStr !== selectInfoStartStr);
-      setCurrentEvents(removeCurrentDays)
-      dataDateElements.forEach(item => {
-        //@ts-ignore
-        if (item.dataset.date === selectInfoStartStr) {
-          item.classList.remove('fc-active')
-        }
-      })
-      Meteor.call(
-        'schedule.removeWorkDay',
-        removeWorkDays[0]
-      )
-    }
-    let calendarApi = selectInfo.view.calendar
+    if (convertMinAndMaxTime(selectTest.start) === '0:00:00') {
+      openModal();
 
-    calendarApi.unselect() // clear date selection
+      let calendarApi = selectInfo.view.calendar
 
-    if (!deleteMod && selectInfo.allDay) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title: selectInfo.startStr,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        editable: false,
-        backgroundColor: 'green',
-        display: 'block',
-        borderColor: 'white'
-      })
+      calendarApi.unselect() // clear date selection
 
-      dataDateElements.forEach(item => {
-        //@ts-ignore
-        if (item.dataset.date === selectInfoStartStr) {
-          item.classList.add('fc-active')
-        }
-      })
+      if (!deleteMod && selectInfo.allDay) {
+        calendarApi.addEvent({
+          id: createEventId(),
+          title: selectInfo.startStr,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          editable: false,
+          backgroundColor: 'green',
+          display: 'block',
+          borderColor: 'white'
+        })
+
+        // dataDateElements.forEach(item => {
+        //   //@ts-ignore
+        //   if (item.dataset.date === selectInfoStartStr) {
+        //     item.classList.add('fc-active')
+        //   }
+        // })
+      }
+    } else {
+      return
     }
   }
+
+  const removeWorkDay = () => {
+    const selectInfoStartStr = selectInfoState.startStr;
+    const dataDateElements = document.querySelectorAll('[data-date]')
+    //@ts-ignore
+    const removeWorkDays = uniqWorkDaysDates.filter(item => item.title === selectInfoStartStr)
+    //@ts-ignore
+    const removeCurrentDays = currentEvents.filter(item => item.startStr !== selectInfoStartStr);
+    // setCurrentEvents(removeCurrentDays)
+    dataDateElements.forEach(item => {
+      //@ts-ignore
+      if (item.dataset.date === selectInfoStartStr) {
+        item.classList.remove('fc-active')
+        item.classList.remove('fc-mod')
+      }
+    })
+    Meteor.call(
+      'schedule.removeWorkDay',
+      removeWorkDays[0],
+      Swal.fire({
+        title: 'Success!',
+        text: 'День удален из вашего расписания',
+        icon: 'success',
+        preConfirm: () => {
+          closeModal();
+        },
+      }),
+    )
+  }
+
 
   //События при клике на ивент
 
@@ -223,7 +242,7 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
           </label>
         </OverlayTrigger> */}
 
-          <OverlayTrigger placement='right' overlay={<Tooltip id="tooltip">{tooltipsObject.delete}</Tooltip>}>
+          {/* <OverlayTrigger placement='right' overlay={<Tooltip id="tooltip">{tooltipsObject.delete}</Tooltip>}>
             <label style={{ 'marginLeft': '3em' }}>
               <input
                 type='checkbox'
@@ -232,7 +251,7 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
               ></input>
               {t('remove')}
             </label>
-          </OverlayTrigger>
+          </OverlayTrigger> */}
 
         </div>
       </div>
@@ -326,28 +345,6 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
 
   const defaultMaxTime = new Date('Wed May 31 2023 23:00:00 GMT+0600 (Восточный Казахстан)')
 
-  function hideAcceptBtn() {
-    if (timeWorkData !== undefined && maxTimeSelect !== undefined && minTimeSelect !== undefined || timeWorkData.length > 0) {
-      return (
-        <Button
-          style={{
-            margin: '3em auto',
-            width: '15em'
-          }}
-          variant='primary'
-          type='submit'
-          // onClick={() => setTimeWork(handleClickState)}
-          // onClick={() => (setClickState(true), setTimeWork())}
-          onClick={() => customWorkDay()}
-        >
-          {t('accept')}
-        </Button>
-      )
-    } else {
-      return
-    }
-  }
-
   const [dateInfo, setDateInfo] = useState('')
 
   function customWorkDay() {
@@ -387,7 +384,10 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
           title: 'Success!',
           text: 'Ваше расписание успешно изменено',
           icon: 'success',
-        })
+          preConfirm: () => {
+            closeModal();
+          },
+        }),
       )
     }
   }
@@ -398,7 +398,6 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
   }
 
   const [arrayDays, setArrayDays] = useState([]);
-
 
   const dayCellContent = (arg) => {
 
@@ -498,17 +497,70 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
     }
   }
 
+  function resetDays() {
+    const specialistUserId = specialist.userId;
+    Meteor.call(
+      'schedule.resetDays',
+      specialistUserId,
+      Swal.fire({
+        title: 'Success!',
+        text: 'Ваше расписание сброшено',
+        icon: 'success',
+      })
+    )
+  }
+
+  function hideAcceptBtn(func) {
+    if (testStep !== undefined && minTimeSelect !== undefined && maxTimeSelect !== undefined) {
+      return (
+        <Button
+          style={{
+            margin: '3em auto',
+            width: '15em'
+          }}
+          variant='primary'
+          type='submit'
+          // onClick={() => setTimeWork(handleClickState)}
+          // onClick={() => (setClickState(true), setTimeWork())}
+          onClick={func}
+        >
+          {t('accept')}
+        </Button>
+      )
+    } else {
+      return
+    }
+  }
+
+  function hideDeleteBtn() {
+    return (
+      <Button
+        style={{
+          margin: '3em auto',
+          width: '15em'
+        }}
+        variant='primary'
+        type='submit'
+        // onClick={() => setTimeWork(handleClickState)}
+        // onClick={() => (setClickState(true), setTimeWork())}
+        onClick={removeWorkDay}
+      >
+        Удалить
+      </Button>
+    )
+  }
+
   return (
     <div className='demo-app'>
       {renderSidebar()}
-
+      <Button style={{ display: 'block', margin: '0 auto' }} onClick={() => openModalSettings()}>Настроить расписание</Button>
       <PopupModal
         show={showModal}
         onHide={closeModal}
         content={
           <Col lg='28' md='12' sm='12'>
             <Formik
-              // onSubmit={}
+              onSubmit={hideAcceptBtn}
               initialValues={{
                 step: testStep
               }}
@@ -605,8 +657,9 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
                     </OverlayTrigger>
                   </Row>
                   <OverlayTrigger placement='top' overlay={<Tooltip>{tooltipsObject.acceptSettings}</Tooltip>}>
-                    {() => hideAcceptBtn()}
+                    {() => hideAcceptBtn(() => customWorkDay())}
                   </OverlayTrigger>
+                  {hideDeleteBtn()}
                 </Form>
               )}
             </Formik>
@@ -748,8 +801,9 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
                     </OverlayTrigger>
                   </Row>
                   <OverlayTrigger placement='top' overlay={<Tooltip>{tooltipsObject.acceptSettings}</Tooltip>}>
-                    <Button onClick={() => submitActiveWorkDays()}>Применить</Button>
+                    {() => hideAcceptBtn(() => submitActiveWorkDays())}
                   </OverlayTrigger>
+                  <Button style={{ width: '15em', margin: '3em auto' }} onClick={() => resetDays()}>Сброс</Button>
                 </Form>
               )}
             </Formik>
@@ -811,7 +865,6 @@ export function FullCalendarComponent({ timeWorkData, handleClickState }) {
       {/* <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip">{tooltipsObject.acceptSettings}</Tooltip>}>
         <Button style={{ display: 'block', width: '15em', margin: '2em auto' }} onClick={!deleteMod ? onSubmitChanges : undefined}>{t('accept')}</Button>
       </OverlayTrigger> */}
-      <Button onClick={() => openModalSettings()}>Настроить</Button>
     </div>
   )
 

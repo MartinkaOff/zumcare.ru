@@ -42,7 +42,7 @@ export function BasicDetails({
     <Container>
       <Row style={{ padding: '2rem', justifyContent: 'center' }}>
         <Col>
-          <Card style={{ padding: '2rem', borderRadius: '15px' }}>
+          <Card style={{ padding: '2rem', borderRadius: '15px', backgroundColor: "#F2F5FF", border: "none" }}>
             <Card.Title style={{ textAlign: 'center' }}>{t('basicDetail')}</Card.Title>
             <Card.Body>
               <Row sm='12'>
@@ -123,6 +123,7 @@ export function BasicDetails({
                               onChange={handleChange}
                               isValid={touched.gender && !errors.gender}
                               isInvalid={!!errors.gender}
+                              style={{ background: "rgba(179, 183, 221, 0.30)" }}
                             >
                               <option value=''>{t('notApplicable')}</option>
                               <option value='male'>{t('male')}</option>
@@ -139,10 +140,11 @@ export function BasicDetails({
                         >
                           <center>
                             <Button
-                              variant='primary'
+                              // variant='primary'
                               type='submit'
                               size='lg'
-                              style={{ width: '70%' }}
+                              style={{ width: '50%' }}
+                              className='btn-btn-main'
                             >
                               {t('save')}
                             </Button>

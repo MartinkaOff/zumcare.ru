@@ -104,12 +104,13 @@ export function CertificateUploadContent({
       </div>
       <br />
       <div>
-        <Button onClick={() => fileRef?.current.click()}>{t("download")}</Button>
+        <Button className='btn-btn-main' onClick={() => fileRef?.current.click()}>{t("download")}</Button>
         <input hidden type='file' ref={fileRef} onChange={handleNewImage} />
         <Button
           variant='success'
           disabled={!fileRef?.current?.files[0]}
           onClick={saveImage}
+          className='btn-btn-main'
         >
           {t("save")}
         </Button>

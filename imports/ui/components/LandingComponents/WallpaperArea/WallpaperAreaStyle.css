@@ -196,6 +196,7 @@
 }
 
 .wallpaper-ellipse {
+  z-index: -1;
   left: -10%;
   top: 10%;
   position: absolute;
